@@ -1,0 +1,61 @@
+/* back, initially hidden pane */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;600&display=swap');
+
+*{
+  font-family: 'Raleway', sans-serif;
+}
+
+body > .inner {
+  display: none;
+}
+
+body.pg-loaded > .inner {
+  display: block;
+}
+
+a{
+  color:#005c9c;
+}
+
+#bg{
+  text-shadow: 1px 1px 4px rgba(150, 150, 150, 1);
+  padding: 3em;
+  height: 85vh;
+  background-image: url('covid.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.content{
+  color: white;
+  transform: translate(0%, 20%);
+  z-index: 9;
+  margin: auto;
+}
+
+.btn-wef{
+  background-color: rgba(255, 255, 255, .2);
+  color: white;
+  border-color: white;
+}
+
+.btn-wef:hover{
+  font-weight: bold;
+  color: white;
+  border-color: rgba(255, 255, 255, .2);
+}
+
+#logo{
+  position: absolute;
+  top:20px;
+  right: 20px;
+  filter: brightness(0) invert(1);
+}
+
+#chev{
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  color: white;
+}

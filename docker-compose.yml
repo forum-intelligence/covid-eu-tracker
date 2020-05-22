@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  app: 
+    image: covidapp
+    tty: true
+    restart: always
+    ports:
+      - "8080:3838"
+    command: R -e "options('shiny.port'=3838,shiny.host='0.0.0.0');covid.tracker::run_app(embed_url='https://tracker.weforum.org/embed')"
+
+  embed:
+    image: covidapp
+    tty: true
+    restart: always
+    ports:
+      - "8181:3838"
+    command: R -e "options('shiny.port'=3838,shiny.host='0.0.0.0');covid.tracker::run_embeds()"

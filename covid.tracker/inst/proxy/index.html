@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/materia/bootstrap.min.css" rel="stylesheet" integrity="sha384-1tymk6x9Y5K+OF0tlmG2fDRcn67QGzBkiM3IgtJ3VrtGrIi5ryhHjKjeeS60f1FA" crossorigin="anonymous"> -->
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.weforum.org/favicons/apple-touch-icon.png?v=lk270KxwRj">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.weforum.org/favicons/favicon-32x32.png?v=lk270KxwRj">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.weforum.org/favicons/favicon-16x16.png?v=lk270KxwRj">
+    <link rel="mask-icon" href="https://www.weforum.org/favicons/safari-pinned-tab.svg?v=lk270KxwRj" color="#035b9c">
+    <link rel="shortcut icon" href="https://www.weforum.org/favicon.ico?v=lk270KxwRj">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#035b9c">
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://kit.fontawesome.com/888409c4bc.js" crossorigin="anonymous"></script>
+
+    <!--  Essential META Tags -->
+    <meta property="og:title" content="COVID-19 - Strategic Intelligence">
+    <meta property="og:description" content="A focus on the COVID-19 spread throughout Europe.">
+    <meta property="og:image" content="https://tracker.weforum.org/assets/covid.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <!--  Non-Essential, But Recommended -->
+    <meta property="og:site_name" content="COVID-19 - Strategic Intelligence">
+    <meta name="twitter:image:alt" content="COVID-19">
+    <!--  Non-Essential, But Required for Analytics -->
+    <meta name="twitter:site" content="@wef">
+    <meta name="twitter:image" content="https://tracker.weforum.org/assets/covid.jpg">
+
+    <!-- GOOGLE ANALYTICS -->
+    <script async src='https://www.googletagmanager.com/gtag/js?id=UA-15704185-67'></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-15704185-67');
+    </script>
+    <title>COVID-19 - Strategic Intelligence</title>
+  </head>
+  <body>
+    <div id="bg">
+      <img id="logo" src="https://www.weforum.org/assets/logo-b66768797e3f785791fd157ffc33c27eeca6d5100b7f34d418f50d206f1a8004.svg" alt="World Economic Forum Logo">
+      <div class="content">
+        <h1 class="display-3">Strategic Intelligence</h1>
+        <h2 class="display-6">COVID-19 Tracker: Europe</h1>
+        <p class="lead">A detailed look at the spread of the coronavirus.</p>
+        <a class="btn btn-wef btn-lg" href="app/covid" role="button">Tracker</a>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="container">
+
+      <div class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+          <h3 id="methodology">Methodology</h3>
+          <p>
+            While many existing visualizations track the virus’ spread to European countries and provide country-level statistics, the focus of this project is to provide both country-level information for all European states in addition to provincial and regional figures where available. Currently, we cover Austria, Belgium, France, Germany, Italy, Norway, Poland, Spain, Sweden, Switzerland, Ukraine, and the United Kingdom (England and Scotland) at this more granular level.
+          </p>
+          <p>
+            For country-level data, we use daily updates on confirmed cases from the European Centre of Disease Prevention and Control (ECDC). Provincial-level data are collected from various governmental websites. Because we rely on these disparate data sources, there may be observable differences between the country-level data and the aggregated, more granular statistics. We make no interpolation or extrapolation of the data, and all data sources are referenced at the bottom of the tracker.
+          </p>
+          <p>
+            For country level statistics, we aggregate sub-country level figures where available. Otherwise, we use the ECDC source. On the timeline visualisation, we however use only ECDC data to allow for a fairer comparison between countries.
+          </p>
+          <p>
+            A programmatic pipeline has been built to extract and process the data in a fully automated way, such as to ensure scalability as we add new data sources, full reproducibility, and minimize the risk for manual errors. This also allows us to provide the data back to the community in a structured format, accompanied with the source code shared through an open source GitHub repository (coming out soon).
+          </p>
+          <p>Feel free to contact us at <a href='mailto:tracker@weforum.org'>tracker@weforum.org</a>.</p>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+
+      <h3 id="sources">Data Sources</h3>
+      <p>Below are all the sources of data used in the <a href="app/covid">tracker</a>.</p>
+
+      <div class="list-group bg-white rounded">
+
+        <a href="https://www.sozialministerium.at/Informationen-zum-Coronavirus/Neuartiges-Coronavirus-(2019-nCov).html" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Austria</h5>
+            <small class="text-muted">sozialministerium.at</small>
+          </div>
+          <p class="mb-1">Confirmed cases for provinces in Austria are taken from the Ministry of Social Affairs of Austria.</p>
+          <small class="text-muted">Ministry of Social Affairs</small>
+        </a>
+
+        <a href="https://epistat.wiv-isp.be/covid/" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Belgium</h5>
+            <small class="text-muted">epistat.wiv-isp.be</small>
+          </div>
+          <p class="mb-1">Confirmed cases for the provinces of Belgium are taken from Sciensano which monitors the situation at the request of Belgian health authorities</p>
+          <small class="text-muted">Sciensano</small>
+        </a>
+
+        <a href="https://www.arcgis.com/home/item.html?id=b684319181f94875a6879bbc833ca3a6" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">England</h5>
+            <small class="text-muted">arcgis.com</small>
+          </div>
+          <p class="mb-1">Confirmed cases for the counties of England are taken from the United Kingdom Ministry of Public Health</p>
+          <small class="text-muted">Ministry of Public Health</small>
+        </a>
+
+        <!-- <a href="https://www.santepubliquefrance.fr/maladies-et-traumatismes/maladies-et-infections-respiratoires/infection-a-coronavirus/articles/infection-au-nouveau-coronavirus-sars-cov-2-covid-19-france-et-monde" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">France</h5>
+            <small class="text-muted">santepubliquefrance.fr</small>
+          </div>
+          <p class="mb-1">Confirmed cases for the regions of France are taken from the National Health Services (Santé Publique France)</p>
+          <small class="text-muted">Santé Publique France</small>
+        </a> -->
+
+        <a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Fallzahlen.html" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Germany</h5>
+            <small class="text-muted">rki.de</small>
+          </div>
+          <p class="mb-1">Confirmed cases for provinces in Germany are taken from the Federal Robert Koch Institue.</p>
+          <small>Federal Robert Koch Institue</small>
+        </a>
+
+        <a href="https://github.com/pcm-dpc/COVID-19/" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Italy</h5>
+            <small class="text-muted">github.com</small>
+          </div>
+          <p class="mb-1">Confirmed cases for provinces in Italy are taken from the Department of Civil Protection.</p>
+          <small class="text-muted">Department of Civil Protection.</small>
+        </a>
+
+        <a href="https://www.rivm.nl/nieuws/actuele-informatie-over-coronavirus/data" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Netherlands</h5>
+            <small class="text-muted">rivm.nl</small>
+          </div>
+          <p class="mb-1">Confirmed cases for the regions of the Netherlands are taken from the Ministry of Health</p>
+          <small class="text-muted">Ministry of Health</small>
+        </a>
+
+        <a href="https://www.fhi.no/sv/smittsomme-sykdommer/corona/" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Norway</h5>
+            <small class="text-muted">fhi.no</small>
+          </div>
+          <p class="mb-1">Confirmed cases for provinces of Norway are taken from the Norwegian Institute of Public Health</p>
+          <small class="text-muted">Institute of Public Health</small>
+        </a>
+
+        <a href="https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Poland</h5>
+            <small class="text-muted">gov.pl</small>
+          </div>
+          <p class="mb-1">Confirmed cases for the provinces of Poland are taken from the official website of the Republic of Poland</p>
+          <small class="text-muted">Government Website</small>
+        </a>
+
+        <a href="https://www.gov.scot/coronavirus-covid-19/" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Scotland</h5>
+            <small class="text-muted">gov.scot</small>
+          </div>
+          <p class="mb-1">Confirmed cases for the NHS Health Boards of Scotland are taken from the Department of Health of Scotland</p>
+          <small class="text-muted">Department of Health</small>
+        </a>
+
+        <a href="https://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov-China/situacionActual.htm" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Spain</h5>
+            <small class="text-muted">gob.es</small>
+          </div>
+          <p class="mb-1">Confirmed cases for the regions of Spain are taken from the Ministry of Health of Spain (Ministerio de Sanidad)</p>
+          <small class="text-muted">Ministerio de Sanidad</small>
+        </a>
+
+        <a href="https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/aktuellt-epidemiologiskt-lage/" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Sweden</h5>
+            <small class="text-muted">folkhalsomyndigheten.se</small>
+          </div>
+          <p class="mb-1">Confirmed cases for provinces of Sweden are taken from the Public Health Agency of Sweden</p>
+          <small class="text-muted">Public Health Agency</small>
+        </a>
+
+        <a href="https://interactif.tdg.ch/2020/covid-19-carte-suisse/" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Switzerland</h5>
+            <small class="text-muted">tdg.ch</small>
+          </div>
+          <p class="mb-1">Confirmed cases for the cantons of Switzerland are taken from the Federal Office of Public Health via Tribune de Genève</p>
+          <small class="text-muted">Tribune de Genève</small>
+        </a>
+
+        <a href="https://moz.gov.ua/article/news/operativna-informacija-pro-poshirennja-koronavirusnoi-infekcii-2019-ncov-" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Ukraine</h5>
+            <small class="text-muted">moz.gov.ua</small>
+          </div>
+          <p class="mb-1">Confirmed cases for the provinces of Ukraine are taken from the Ministry of Healthcare of Ukraine</p>
+          <small class="text-muted">Ministry of Healthcare</small>
+        </a>
+
+        <a href="https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide" class="list-group-item list-group-item-action" target="_blank">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Other European Countries</h5>
+            <small class="text-muted">europa.eu</small>
+          </div>
+          <p class="mb-1">Confirmed cases at the country level for all European countries are taken from the European Center for Disease Prevention and Control (ECDC)</p>
+          <small class="text-muted">European Center for Disease Prevention and Control</small>
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+
+
+      <footer class="footer align-middle">
+        <div class="container">
+          <div class="row">
+            <div class="col-md">
+              <p>© 2020 World Economic Forum</p>
+            </div>
+            <div class="col-md">
+              <a href="https://intelligence.weforum.org/" class="float-right">World Economic Forum Strategic Intelligence</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+^LICENSE\.md$
+^_covid\.yml$
+Dockerfile
+^.*\.Rproj$
+^\.Rproj\.user$

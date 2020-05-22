@@ -1,0 +1,10 @@
+prod:
+  dbname: db
+  user: initials
+  password: pwd
+  host: 127.0.0.1
+dev:
+  dbname: db
+  user: initials
+  password: pwd
+  host: 127.0.0.1

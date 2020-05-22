@@ -1,0 +1,128 @@
+/* back, initially hidden pane */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;600&display=swap');
+
+*{
+  font-family: 'Raleway', sans-serif;
+}
+
+#logo{
+  position: absolute;
+  height: 50px;
+  right: 10px;
+  top: 10px;
+}
+
+#header{
+  color: #005c9c;
+}
+
+.badge>a{
+  color: white;
+}
+
+.centerize{
+  text-align: center;
+}
+
+.coene{
+  text-align: center;
+}
+
+.panel{
+  box-shadow:
+    0 6.7px 5.3px rgba(0, 0, 0, 0.021),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.037),
+    0 100px 80px rgba(0, 0, 0, 0.07);
+}
+
+#europe-flip{
+  position: absolute;
+  z-index: 3;
+  top: 40px;
+  right: 20px;
+}
+
+.panel-body{
+  position: relative;
+}
+
+.hide{
+  display: none;
+}
+
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 600px;
+}
+	/* flip the pane when hovered */
+	.flip-container.hover .flipper {
+		transform: rotateY(180deg);
+	}
+
+.flip-container, .front, .back {
+	width: 100%;
+  height: inherit;
+  min-height: 90vh;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.8s;
+	transform-style: preserve-3d;
+  background: white;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+  background: white;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+.back {
+	transform: rotateY(180deg);
+}
+
+.content {
+  padding: 20px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+#content2 {
+  padding: 20px;
+  display: none;
+  overflow: hidden;
+}
+
+.norm{
+  border-style: solid;
+  border-color: #e3e3e3;
+  border-radius: 10px;
+  border-width: 1px;
+  padding: 10px;
+}
+
+.control-label{
+  font-weight: normal;
+}
+
+.labels{
+  font-weight: 700;
+}
+
+.emphasize{
+  color: white;
+  background-color: #fd8d3c;
+}

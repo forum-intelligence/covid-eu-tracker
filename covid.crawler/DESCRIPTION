@@ -1,0 +1,43 @@
+Package: covid.crawler
+Title: Crawls Covid Data
+Version: 0.0.1
+Authors@R: 
+    c(
+        person(given = "Jean-Philippe",
+           family = "Coene",
+           role = c("aut", "cre"),
+           email = "jean-philippe.coene@weforum.org"),
+        person(given = "Pierre",
+           family = "Saouter",
+           role = c("ctb"),
+           email = "pierre.saouter@weforum.org"),
+        person(given = "Julius",
+           family = "Schulte",
+           role = c("ctb"),
+           email = "julius.schulte@weforum.org"),
+        person(family = "World Economic Forum", role = "cph")
+    )
+Description: Crawls Covid Data.
+License: AGPL-3 + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+Imports:
+    DBI,
+    xml2,
+    yaml,
+    curl,
+    readr,
+    rvest,
+    dplyr,
+    purrr,
+    tidyr,
+    readxl,
+    tibble,
+    jsonlite,
+    magrittr,
+    RPostgres,
+    tabulizer,
+    tidyselect,
+    countrycode
+RoxygenNote: 7.1.0

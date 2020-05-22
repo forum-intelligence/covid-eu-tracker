@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head lang="en">
+	<title th:text="${appTitle}"></title>
+	<!--  Essential META Tags -->
+	<meta property="og:title" content="COVID-19 - Strategic Intelligence">
+	<meta property="og:description" content="A focus on the COVID-19 spread throughout Europe.">
+	<meta property="og:image" content="https://tracker.weforum.org/assets/covid.jpg">
+	<meta name="twitter:image" content="https://tracker.weforum.org/assets/covid.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<!--  Non-Essential, But Recommended -->
+	<meta property="og:site_name" content="COVID-19 - Strategic Intelligence">
+	<meta name="twitter:image:alt" content="COVID-19">
+	<!--  Non-Essential, But Required for Analytics -->
+	<meta name="twitter:site" content="@wef">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../assets/please-wait.css" rel="stylesheet">
+	<link rel="stylesheet" media="screen" th:href="@{${bootstrapCss}}" />
+	<link rel="stylesheet" media="screen" th:href="@{/css/default.css}"/>
+	<script th:src="@{${jqueryJs}}"></script>
+	<script th:src="@{${bootstrapJs}}"></script>
+</head>
+<body>
+	<div th:replace="../fragments/navbar :: navbar"></div>
+	
+  <iframe id="shinyframe" th:src="${container}" width="100%" frameBorder="0"></iframe>
+  <!-- <div class="loading"><div class="loading-txt">Launching <span th:text="${appTitle}"></span>...</div></div> -->
+
+  <script type="text/javascript" src="../assets/please-wait.min.js"></script>
+    
+	<script type="text/javascript" th:inline="javascript">
+		function setShinyframeHeight() {
+      $('#shinyframe').css('height', ($(window).height())+'px');
+		}
+		window.addEventListener("load", setShinyframeHeight);
+		window.addEventListener("resize",  setShinyframeHeight);
+		
+		$(window).on('load', function() {
+			var source = $("#shinyframe").attr("src");
+			if (source == "") {
+        $('body').css('background', '#005c9c');
+        $('#shinyframe').css('background', '#005c9c');
+        window.loading_screen = window.pleaseWait({
+          logo: "",
+          backgroundColor: '#005c9c',
+          loadingHtml: "<span style='color:white;'>Launching Dashboard</span>"
+        });
+				$.post(window.location.pathname + window.location.search, function(response) {
+					$("#shinyframe").attr("src", response.containerPath);
+          setTimeout(function(){
+            window.loading_screen.finish();
+          }, 4000);
+          $('body').css('background', '#fff');
+          $('#shinyframe').css('background', '#fff');
+				}).fail(function(request) {
+					var newDoc = document.open("text/html", "replace");
+					newDoc.write("<body style='color:white;text-align:center;'><h2>Sorry!</h2><p>An error occurred, please reload the page.</p><br><button onClick='location.reload();'>Reload</button></body>");
+					newDoc.body.style.background = "#005c9c";
+					newDoc.close();
+        });
+      }
+		});
+	</script>
+</body>
+</html>
+<!--
+    Thanks to Open Analytics for ShinyProxy! - John Coene
+-->
