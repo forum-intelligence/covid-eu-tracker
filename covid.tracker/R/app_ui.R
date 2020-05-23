@@ -68,7 +68,7 @@ app_ui <- function(request) {
               "For country level statistics, we aggregate sub-country level figures where available. Otherwise, we use the ECDC source. On the timeline visualisation, we however use only ECDC data to allow for a fairer comparison between countries."
             ),
             p(
-              "A programmatic pipeline has been built to extract and process the data in a fully automated way, such as to ensure scalability as we add new data sources, full reproducibility, and minimize the risk for manual errors. This also allows us to provide the data back to the community in a structured format, accompanied with the source code shared through an open source GitHub repository (coming out soon)."
+              "A programmatic pipeline has been built to extract and process the data in a fully automated way, such as to ensure scalability as we add new data sources, full reproducibility, and minimize the risk for manual errors. This also allows us to provide the data back to the community in a structured format, accompanied with the source code shared through an open source [GitHub repository](https://github.com/forum-intelligence/covid-eu-tracker)."
             ),
             HTML(
               "<p>Feel free to contact us at <a href='mailto:tracker@weforum.org'>tracker@weforum.org</a>.</p>"
