@@ -2,11 +2,11 @@
 
 ## About this project
 
-While many existing visualizations track the virus’ spread to European countries and provide country-level statistics, the focus of this project is to provide both country-level information for all European states in addition to provincial and regional figures where available.
+The project's overarching objective is to present a simple, reproducible framework that can inspire future solutions to the problem of sharing consistently structured data.
 
-A programmatic pipeline has been built to extract and process the data in a fully automated way, such as to ensure scalability as we add new data sources, full reproducibility, and minimize the risk for manual errors. This also allows us to provide the data back to the community in a structured format through various API endpoints.
+While many existing visualizations track the virus' spread to European countries and provide country-level statistics, the focus of this project is to provide both country-level information for all European states in addition to provincial and regional figures where available.
 
-The overall objective of this project is therefore to present a reproducible framework that could inspire better solutions to the problem of data management for reporting purposes in such crisis situations.
+A programmatic pipeline has been built to extract and process the data in a fully automated way, such as to ensure scalability as we add new data sources, full reproducibility, and minimize the risk for manual errors. It allows us to provide the data back to the community in a structured format through various (API endpoints)[#api].
 
 ## About this repository
 
