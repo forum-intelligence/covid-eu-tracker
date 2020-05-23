@@ -10,9 +10,9 @@ A programmatic pipeline has been built to extract and process the data in a full
 
 ## About this repository
 
-This repository contains the code and utilities needed to build and run the [World Economic Forum Strategic Intelligence COVID-19 Europe tracker](https://tracker.weforum.org/). If you want to learn more we have an [article on this project](https://www.weforum.org/agenda/2020/04/covid-19-this-tool-tracks-coronavirus-path-in-europe/) in the World Economic Forum's Agenda.
+The repository contains the code and utilities needed to build and run the [World Economic Forum Strategic Intelligence COVID-19 Europe tracker](https://tracker.weforum.org/). The project was featured in this [article](https://www.weforum.org/agenda/2020/04/covid-19-this-tool-tracks-coronavirus-path-in-europe/) of the World Economic Forum's Agenda.
 
-This project is arranged into two R packages. The first one, *covid.crawler*, establishes an ETL framework to crawl, structure and store the data from multiple heteroclite sources into a Postgres database. The second package contains two shiny applications, one that supports the actual [COVID-19 tracker](https://tracker.weforum.org/), the other that supports the embedded charts made available in the tracker.
+The project is arranged into two R packages. The first one, *covid.crawler*, establishes an ETL framework to crawl, structure and store the data from multiple heteroclite sources into a Postgres database. It also provides the utilities to promote the access to the databases to API endpoints. The second package contains two shiny applications, one that supports the actual [COVID-19 tracker](https://tracker.weforum.org/), the other one that supports the embedded charts made available in the tracker.
 
 ![home screenshot](home.png)
 
@@ -23,12 +23,11 @@ Both packages can be installed using `remotes`:
 ```r
 # install with remotes
 install.packages("remotes")
-
 remotes::install_github("forum-intelligence/covid-eu-tracker/covid.crawler") # crawler
 remotes::install_github("forum-intelligence/covid-eu-tracker/covid.tracker") # tracker
 ```
 
-You can also clone the repository and individually install the packages with `remotes` or `devtools`. In particular, this is the recommended approach if you want to use Docker to deploy the project.
+You can also clone the repository and install the packages individually with `remotes` or `devtools`. In particular, this is the recommended approach if you want to use Docker to deploy the project.
 
 ```r
 # install with remotes
@@ -55,7 +54,7 @@ In the `covid.crawler` package, you can run the below utility function:
 covid.crawler::create_config()
 ```
 
-This will create a `_covid.yml` file with the following content:
+This will create a `_covid.yml` file with the following content for you to update:
 
 ```yaml
 prod:
@@ -70,9 +69,10 @@ dev:
   host: 127.0.0.1
 ```
 
-This allows using two databases, one for development and another for production. Because the format and availability of the data sources change from time to time, we recommend to always run the crawler in dev before pushing to prod.
+This above configuration allows using two databases, one for development purposes, and another one for production. Because the format, structure, and availability of the data sources have historically
+changed more than once, we recommend to always run the crawler in dev before pushing to prod.
 
-In the `covid.tracker` package, there is no distinction between the dev and prod environments, and the `_covid.yml` sets the following variables:
+In the `covid.tracker` package, there is no distinction between the dev and prod environments. The `_covid.yml` file sets the following variables:
 
 ```r
 dbname: db
@@ -83,13 +83,11 @@ host: 127.0.0.1
 
 ## Crawling the data sources
 
-:exclamation: In order to run the crawler to have a Postgres database set-up, the access to which is specified in in your configuration files (see [Setup](#setup)).
+:exclamation: In order to run the crawler, you need to have a Postgres database set-up, the access to which is specified in in your configuration files (see [Setup](#setup)).
 
-Due to the lack of a common set of principles for formatting, structuring and distributing data accross different countries, the daily crawl of the data is admittedly the most challenging part of this project. The package `covid.crawler`
-provides a framework for automating (as a much as possible) all the data sources used in the project. It provides the data back to the community in a single and consistent structure accross all countries and aggregation levels (see [API](#api)).
+Due to the lack of a common set of principles for formatting, structuring and distributing data accross different countries, the daily crawl of the data is admittedly the most challenging part of this project. The package `covid.crawler` establishes a framework for automating, as a much as possible, the ETL process for all the data sources used in the project. It provides the data back to the community in a single and consistent structure accross all countries and aggregation levels (see [API](#api)).
 
-⚡ Despite the crawling being automated, the format and structure of the source data have changed in the past. Therefore, if you run into any issue when running the crawler, please ensure you have the latest version of the code before opening an issue. 
-Someone might have already updated the code to meet the changes in a problematic data source.
+⚡ Despite the crawling being automated, the format and structure of the source data have changed in the past. Therefore, if you run into any issue when running the crawler, please ensure you have the latest version of the code before opening an issue. The code might have already been updated to meet the changes in a problematic data source.
 
 Every distinct source of data is collected and stored in the database via its own function. These are wrapped into a single `crawl_covid` function.
 
@@ -103,7 +101,7 @@ covid.crawler::crawl_covid()
 
 ### Switzerland and the United Kingdom
 
-Due to the way the data for Switzerland is obtained, it must be crawled using nodejs called from R. It therefore requires an installation of nodejs as well as the `fs` and `puppeteer` modules, ideally installed _globally_ (make sure to specify the `g` flag as shown below).
+Due to the way the data for Switzerland is made available, it must be crawled using nodejs called from R. It therefore requires an installation of nodejs as well as the `fs` and `puppeteer` modules, ideally installed _globally_ (make sure to specify the `g` flag as shown below).
 
 ```bash
 npm i fs puppeteer -g
@@ -112,7 +110,7 @@ npm i fs puppeteer -g
 For the United Kingdom, most of the data is made available through a downloadable csv file. However, the latter is missing the total confirmed cases for Ireland, Scotland and Whales presented on the 
 official [governmental website](https://coronavirus.data.gov.uk/). These missing data points are recovered using the same nodejs approach as for Switzerland.
 
-If you want to learn more, make sure to check the `add_uk` `add_switzerland` functions.
+If you want to learn more, you can check the `add_uk` `add_switzerland` functions.
 
 ## Running the app
 
@@ -131,17 +129,17 @@ covid.tracker::run_app()
 
 Leave the `_covid.yml` file at the root of the /covid.tracker directory. Fron the root of the project, where the file `docker-compose.yml` sits, run `docker-compose up` to run _both apps_ from a single image.
 
-You should update the `embed_url` argument in the `docker-compose.yml` file too.
+You must also update the `embed_url` argument in the `docker-compose.yml` file.
 
 ## API
 
-The applications make use of an API framwework that provides all the country data nicely structured through endpoints. The API sits in the `covid.crawler` package, in `inst/api` directory.
+The applications make use of an API framwework that makes all the structured country data available through endpoints. The API sits in the `covid.crawler` package, in the `inst/api` directory.
 
 ```bash
 cd ./covid.crawler/inst/api/  
 ```
 
-Then you can run the API locally from R with:
+You can then run the API locally from R with:
 
 ```r
 # install.packages("plumber")
@@ -150,7 +148,7 @@ pr <- plumber::plumb('plumber.R')
 pr$run()
 ```
 
-To use docker, build the image from the same directory:
+If you are deploying using the Docker approach, build the image from the same directory:
 
 ```bash
 docker build -t covidapi .
