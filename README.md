@@ -6,7 +6,7 @@ The project's overarching objective is to present a simple, reproducible framewo
 
 While many existing visualizations track the virus' spread to European countries and provide country-level statistics, the focus of this project is to provide both country-level information for all European states in addition to provincial and regional figures where available.
 
-A programmatic pipeline has been built to extract and process the data in a fully automated way, such as to ensure scalability as we add new data sources, full reproducibility, and minimize the risk for manual errors. It allows us to provide the data back to the community in a structured format through various (API endpoints)[#api].
+A programmatic pipeline has been built to extract and process the data in a fully automated way, such as to ensure scalability as we add new data sources, full reproducibility, and minimize the risk for manual errors. It allows us to provide the data back to the community in a structured format through various [API endpoints](#api).
 
 ## About this repository
 
