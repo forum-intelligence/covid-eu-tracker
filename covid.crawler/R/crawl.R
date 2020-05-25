@@ -23,6 +23,7 @@ crawl_covid <- function(puppet_ch = system.file("crawl/crawl_ch.js", package = "
   add_netherlands(state)
   add_belgium(state)
   add_europe(state)
+  add_sweden(state)
   add_update_time(date_time, state)
 
 }
