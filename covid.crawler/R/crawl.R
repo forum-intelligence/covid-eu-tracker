@@ -145,7 +145,7 @@ add_spain <- function(state = c("dev", "prod")){
   tmp <- tempfile(fileext = ".pdf")
   utils::download.file(sp_data, tmp)
   sp_data <- tabulizer::extract_tables(tmp, pages = 1, output = "data.frame") %>% 
-    .[[2]] %>% 
+    .[[1]] %>% 
     dplyr::select(X, X.1) %>% 
     dplyr::rename_all(col_names) %>% 
     dplyr::slice(2:dplyr::n()-1) %>% 
