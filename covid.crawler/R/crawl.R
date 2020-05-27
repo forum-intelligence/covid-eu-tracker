@@ -195,7 +195,7 @@ add_ukraine <- function(state = c("dev", "prod")){
 
 #' @rdname crawlers
 #' @export
-add_switzerland <- function(puppet = system.file("crawl/crawl.js", package = "covid.crawler"), state = c("dev", "prod")){
+add_switzerland <- function(puppet = system.file("crawl/crawl_ch.js", package = "covid.crawler"), state = c("dev", "prod")){
 
   tmp <- tempfile(fileext = ".json")
   args <- paste(puppet, tmp)
