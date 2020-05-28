@@ -269,7 +269,7 @@ add_netherlands <- function(state = c("dev", "prod")){
   tmp <- tempfile(fileext = ".pdf")
   utils::download.file(nl_pdf_url, tmp)
 
-  nl_data <- tabulizer::extract_tables(tmp, pages = 10, output = "data.frame") %>% 
+  nl_data <- tabulizer::extract_tables(tmp, pages = 11, output = "data.frame") %>% 
     .[[1]] %>% 
     dplyr::select(province = Provincie, cases = `Totaal.gemeld`) %>% 
     dplyr::slice(2:dplyr::n())
