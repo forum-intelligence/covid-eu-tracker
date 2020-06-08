@@ -290,9 +290,6 @@ add_belgium <- function(state = c("dev", "prod")){
     dplyr::group_by(province) %>% 
     dplyr::summarise(cases = sum(cases)) %>% 
     dplyr::ungroup() %>% 
-    dplyr::mutate(
-      province = iconv(province, from = "ISO-8859-1", to = "UTF-8")
-    ) %>% 
     dplyr::filter(!is.na(province)) %>% 
     dplyr::mutate(
       province = gsub('([[:upper:]])', ' \\1', province),
