@@ -56,7 +56,7 @@ add_norway <- function(state = c("dev", "prod")){
 
   # read table
   col_names <- function(.) c("province", "cases", "per_capita")
-  no_data <- tabulizer::extract_tables(tmp, pages = 11, output = "data.frame") %>% 
+  no_data <- tabulizer::extract_text(tmp, pages = 11) %>% 
     clean_norway()
 
   unlink(tmp) # delete pdf
@@ -261,20 +261,13 @@ add_poland <- function(state = c("dev", "prod")){
 #' @export
 add_netherlands <- function(state = c("dev", "prod")){
   # netherlands
-  nl_pdf_url <- read_html(url_nl) %>% 
-    rvest::html_node(".file-subtitle") %>% 
-    rvest::html_node(".download") %>% 
-    rvest::html_attr("href")
-
-  tmp <- tempfile(fileext = ".pdf")
-  utils::download.file(nl_pdf_url, tmp)
-
-  nl_data <- tabulizer::extract_tables(tmp, pages = 11, output = "data.frame") %>% 
-    .[[1]] %>% 
-    dplyr::select(province = Provincie, cases = `Totaal.gemeld`) %>% 
-    dplyr::slice(2:dplyr::n())
-
-  unlink(tmp)
+  nl_data <- read.delim(url_nl, sep = ";") %>% 
+    dplyr::mutate(Date_of_report = as.Date(Date_of_report)) %>% 
+    dplyr::filter(Date_of_report == max(Date_of_report)) %>% 
+    dplyr::select(province = Province, cases = Total_reported) %>% 
+    dplyr::group_by(province) %>% 
+    dplyr::summarise(cases = sum(cases)) %>% 
+    dplyr::ungroup()
 
   con <- connect(state)
   write_table(con, "netherlands", nl_data)

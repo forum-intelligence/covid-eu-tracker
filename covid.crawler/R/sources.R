@@ -13,7 +13,7 @@ url_de <- "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/Co
 url_sco <- "https://www.gov.scot/publications/coronavirus-covid-19-tests-and-cases-in-scotland/"
 url_se <- "https://www.folkhalsomyndigheten.se/folkhalsorapportering-statistik/statistik-a-o/sjukdomsstatistik/covid-19-veckorapporter/"
 url_ru <- "https://xn--80aesfpebagmfblc0a.xn--p1ai/#"
-url_nl <- "https://www.rivm.nl/coronavirus-covid-19/grafieken"
+url_nl <- "https://data.rivm.nl/covid-19/COVID-19_aantallen_gemeente_cumulatief.csv"
 url_pt <- "https://covid19.min-saude.pt/relatorio-de-situacao/"
 url_ua <- "https://moz.gov.ua/article/news/operativna-informacija-pro-poshirennja-koronavirusnoi-infekcii-2019-ncov-1"
 url_be <- "https://epistat.sciensano.be/Data/COVID19BE_CASES_AGESEX.csv"
