@@ -120,7 +120,7 @@ add_italy <- function(state = c("dev", "prod")){
   names(ita_data) <- c(
     "date", "country", "region_code", "region_name",
     "province_code", "province_name", "province_initials",
-    "lat", "long", "cases", "comment_it", "comment_en"
+    "lat", "long", "cases", "comment"
   )
   ita_data$date <- as.POSIXct(ita_data$date)
 
@@ -145,7 +145,7 @@ add_spain <- function(state = c("dev", "prod")){
   tmp <- tempfile(fileext = ".pdf")
   utils::download.file(sp_data, tmp)
   sp_data <- tabulizer::extract_tables(tmp, pages = 1, output = "data.frame") %>% 
-    .[[1]] %>% 
+    .[[2]] %>% 
     dplyr::select(X, X.1) %>% 
     dplyr::rename_all(col_names) %>% 
     dplyr::slice(2:dplyr::n()-1) %>% 
