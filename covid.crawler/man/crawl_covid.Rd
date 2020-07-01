@@ -7,12 +7,13 @@
 crawl_covid(
   puppet_ch = system.file("crawl/crawl_ch.js", package = "covid.crawler"),
   puppet_uk = system.file("crawl/crawl_uk.js", package = "covid.crawler"),
+  puppet_no = system.file("crawl/crawl_no.js", package = "covid.crawler"),
   date_time = Sys.time(),
   state = c("dev", "prod")
 )
 }
 \arguments{
-\item{puppet_ch, puppet_uk}{Paths to puppet js crawling files for UK and Switzerland.}
+\item{puppet_ch, puppet_uk, puppet_no}{Paths to puppet js crawling files for UK and Switzerland.}
 
 \item{date_time}{Date time of last update (dislpayed on dashboard).}
 

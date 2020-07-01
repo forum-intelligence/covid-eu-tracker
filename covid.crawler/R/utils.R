@@ -6,7 +6,8 @@ globalVariables(
     "per_capita", "previous1", "previous2", "previous3", "previous4",
     "Anzahl", "Area name", "Area type", "Bundesland", "Cumulative lab-confirmed cases",
     "Genesen", "Provincie", "Specimen date", "Totaal.gemeld", "X.1", "current_cases",
-    "date_time", "hospital", "recovered", "type"
+    "date_time", "hospital", "recovered", "type", "Date_of_report", "Province",
+    "Total_reported"
   )
 )
 

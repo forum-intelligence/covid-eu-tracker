@@ -18,7 +18,10 @@
 \alias{add_uk}
 \title{Individual Crawlers}
 \usage{
-add_norway(state = c("dev", "prod"))
+add_norway(
+  puppet = system.file("crawl/crawl_no.js", package = "covid.crawler"),
+  state = c("dev", "prod")
+)
 
 add_scotland(state = c("dev", "prod"))
 
@@ -31,7 +34,7 @@ add_spain(state = c("dev", "prod"))
 add_ukraine(state = c("dev", "prod"))
 
 add_switzerland(
-  puppet = system.file("crawl/crawl.js", package = "covid.crawler"),
+  puppet = system.file("crawl/crawl_ch.js", package = "covid.crawler"),
   state = c("dev", "prod")
 )
 
@@ -55,9 +58,9 @@ add_uk(
 )
 }
 \arguments{
-\item{state}{Where to push data to, dev of prod database.}
-
 \item{puppet}{Paths to puppet js crawling files for UK and Switzerland.}
+
+\item{state}{Where to push data to, dev of prod database.}
 
 \item{date_time}{Date time of last update (dislpayed on dashboard).}
 }

@@ -3,20 +3,23 @@
 #' A wrapper functions for all \code{crawlers}.
 #' 
 #' @param date_time Date time of last update (dislpayed on dashboard).
-#' @param puppet_ch,puppet_uk Paths to puppet js crawling files for UK and Switzerland.
+#' @param puppet_ch,puppet_uk,puppet_no Paths to puppet js crawling files for UK and Switzerland.
 #' @param state Where to push data to, dev of prod database.
 #' 
-#' @importFrom utils download.file unzip
+#' @importFrom utils download.file unzip read.delim
 #' 
 #' @export
-crawl_covid <- function(puppet_ch = system.file("crawl/crawl_ch.js", package = "covid.crawler"), puppet_uk = system.file("crawl/crawl_uk.js", package = "covid.crawler"), date_time = Sys.time(), state = c("dev", "prod")){
+crawl_covid <- function(puppet_ch = system.file("crawl/crawl_ch.js", package = "covid.crawler"), 
+  puppet_uk = system.file("crawl/crawl_uk.js", package = "covid.crawler"),
+  puppet_no = system.file("crawl/crawl_no.js", package = "covid.crawler"), date_time = Sys.time(), 
+  state = c("dev", "prod")){
   
-  add_norway(state)
   add_scotland(state)
   add_germany(state)
   add_italy(state)
   add_spain(state)
   add_ukraine(state)
+  add_norway(puppet_no, state)
   add_switzerland(puppet_ch, state)
   add_uk(puppet_uk, state)
   add_poland(state)
@@ -39,27 +42,24 @@ crawl_covid <- function(puppet_ch = system.file("crawl/crawl_ch.js", package = "
 #' 
 #' @rdname crawlers
 #' @export
-add_norway <- function(state = c("dev", "prod")){
+add_norway <- function(puppet = system.file("crawl/crawl_no.js", package = "covid.crawler"), state = c("dev", "prod")){
   has_config() # check config present
 
-  # get pdf link
-  news_pdf_url <- read_html(url_no) %>% 
-    rvest::html_node(".textual-block") %>% 
-    rvest::html_nodes("a") %>% 
-    .[1] %>% 
-    rvest::html_attr("href") %>% 
-    paste0("https://www.fhi.no", .)
-  
-  # download pdf
-  tmp <- tempfile(fileext = ".pdf")
-  utils::download.file(news_pdf_url, tmp)
+  tmp <- tempfile(fileext = ".json")
+  args <- paste(puppet, tmp)
+  system2("node", args)
 
-  # read table
-  col_names <- function(.) c("province", "cases", "per_capita")
-  no_data <- tabulizer::extract_text(tmp, pages = 11) %>% 
-    clean_norway()
+  no_list <- jsonlite::fromJSON(tmp)
 
-  unlink(tmp) # delete pdf
+  unlink(tmp) # delete json
+
+  no_data <- tibble::tibble(
+    province = no_list[[1]][3:length(no_list[[1]])],
+    cases = no_list[[2]]
+  ) %>% 
+    dplyr::mutate(
+      cases = as.integer(cases)
+    )
 
   con <- connect(state)
   write_table(con, "norway", no_data)
@@ -145,7 +145,7 @@ add_spain <- function(state = c("dev", "prod")){
   tmp <- tempfile(fileext = ".pdf")
   utils::download.file(sp_data, tmp)
   sp_data <- tabulizer::extract_tables(tmp, pages = 1, output = "data.frame") %>% 
-    .[[2]] %>% 
+    .[[1]] %>% 
     dplyr::select(X, X.1) %>% 
     dplyr::rename_all(col_names) %>% 
     dplyr::slice(2:dplyr::n()-1) %>% 
