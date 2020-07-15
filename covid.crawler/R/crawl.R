@@ -301,8 +301,7 @@ add_europe <- function(state = c("dev", "prod")){
   curl::curl_download(url_eu, fl)
   eu_data <- readr::read_csv(fl, col_types = readr::cols())
   unlink(fl)
-  names(eu_data) <- c("date_time", "day", "month", "year", "cases", "deaths", "country", "country_code", "country_code_iso", "population", "continent")
-  eu_data$continent <- countrycode::countrycode(eu_data$country_code, "iso2c", "continent")   
+  names(eu_data) <- c("date_time", "day", "month", "year", "cases", "deaths", "country", "country_code", "country_code_iso", "population", "continent", "cumulative") 
 
   eu_data <- eu_data %>% 
     dplyr::mutate(
