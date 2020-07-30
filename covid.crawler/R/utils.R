@@ -187,3 +187,29 @@ clean_norway <- function(x){
 #   cases <- stringr::str_extract_all(spl, "[0-9]+") %>% 
 #     as.integer()
 # }
+
+spain_iso <- data.frame(
+  iso = c("AN", "AR", "AS", "CB", "CE", "CL", "CM", "CN", "CT", "EX", 
+    "GA", "IB", "MC", "MD", "ML", "NC", "PV", "RI", "VC"),
+  province = c(
+    "Andalucía",
+    "Aragón",
+    "Asturias",
+    "Cantabria",
+    "Ceuta",
+    "Castilla y León",
+    "Castilla La Mancha",
+    "Canarias",
+    "Cataluña",
+    "Extremadura",
+    "Galicia",
+    "Baleares",
+    "Murcia",
+    "Madrid",
+    "Melilla",
+    "Navarra",
+    "País Vasco",
+    "La Rioja",
+    "C. Valenciana"
+  )
+)
