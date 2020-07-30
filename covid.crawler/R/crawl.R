@@ -132,45 +132,13 @@ add_italy <- function(state = c("dev", "prod")){
 #' @rdname crawlers
 #' @export
 add_spain <- function(state = c("dev", "prod")){
-  # Spain
-  col_names <- function(.) c("province", "cases")
-  sp_data <- read_html(url_es) %>% 
-    rvest::html_node(".imagen_texto") %>% 
-    rvest::html_nodes("a") %>% 
-    rvest::html_attr("href") %>% 
-    .[[2]] %>% 
-    gsub("\\.\\./\\.\\./\\.\\./\\.\\./\\.\\.", "", .) %>% 
-    paste0("https://www.mscbs.gob.es", .)
 
-  tmp <- tempfile(fileext = ".pdf")
-  utils::download.file(sp_data, tmp)
-  sp_data <- tabulizer::extract_tables(tmp, pages = 1, output = "data.frame") %>% 
-    .[[1]] %>% 
-    dplyr::select(X, X.1) %>% 
-    dplyr::rename_all(col_names) %>% 
-    dplyr::slice(2:dplyr::n()-1) %>% 
-    dplyr::mutate(
-      cases = gsub("[[:space:]].*$", "", cases),
-      cases = gsub("\\.", "", cases),
-      province = gsub("\\*", "", province),
-      province = gsub("\\*\\*", "", province),
-      cases = gsub("\\*\\*", "", cases),
-      cases = gsub("\\.000$", "", cases),
-      cases = gsub("\\.", "", cases),
-      cases = as.integer(cases),
-      province = dplyr::case_when(
-        province == "separando estos casos. Madrid" ~ "Madrid",
-        province == "un Ceuta" ~ "Ceuta",
-        province == "corresponden con nuevos contagios. País Vasco" ~ "País Vasco",
-        province == "de Baleares" ~ "Baleares",
-        province == "diarias Asturias" ~ "Asturias",
-        TRUE ~ province
-      )
-    ) %>% 
-    dplyr::filter(!is.na(cases)) %>% 
-    dplyr::select(province, cases)
-
-  unlink(tmp)
+  sp_data <- read.csv(url_es) %>% 
+    dplyr::group_by(ccaa_iso) %>% 
+    dplyr::summarise(cases = sum(num_casos, na.rm = TRUE)) %>% 
+    dplyr::ungroup() %>% 
+    dplyr::left_join(spain_iso, by = c("ccaa_iso" = "iso")) %>% 
+    dplyr::select(-ccaa_iso)
 
   con <- connect(state)
   write_table(con, "spain", sp_data)
