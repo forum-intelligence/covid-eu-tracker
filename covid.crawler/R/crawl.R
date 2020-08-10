@@ -377,7 +377,7 @@ add_uk <- function(puppet = system.file("crawl/crawl_uk.js", package = "covid.cr
 
   data <- data %>% 
     dplyr::select(county = `Area name`, type = `Area type`, cases = `Cumulative lab-confirmed cases`, date = `Specimen date`) %>% 
-    dplyr::filter(type == "Upper tier local authority") %>% 
+    dplyr::filter(type == "utla") %>% 
     dplyr::filter(date == max(date)) %>% 
     dplyr::select(county, cases)
 
@@ -390,8 +390,8 @@ add_uk <- function(puppet = system.file("crawl/crawl_uk.js", package = "covid.cr
   unlink(tmp)
 
   miss <- tibble::tibble(
-    county = c("Northern Ireland", "Scotland", "Wales"),
-    cases = c(uk_list[5], uk_list[8], uk_list[11])
+    county = c("England", "Scotland", "Wales"),
+    cases = c(uk_list[2], uk_list[5], uk_list[8])
   ) %>% 
     dplyr::mutate(
       cases = gsub(",", "", cases),
