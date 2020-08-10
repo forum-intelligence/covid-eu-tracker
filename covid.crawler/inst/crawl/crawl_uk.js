@@ -6,7 +6,7 @@ var args = process.argv.slice(2);
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto(`https://coronavirus.data.gov.uk/`);
+  await page.goto(`https://coronavirus.data.gov.uk/cases`);
   await page.waitForSelector(".govuk-table");
 
   const data = await page.evaluate(() => {
