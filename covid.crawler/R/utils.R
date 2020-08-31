@@ -145,10 +145,7 @@ clean_ukraine <- function(x){
 
   cases <- purrr::map(x, function(x){
     gsub("^.*—", "", x) %>% 
-      gsub("\\(.*\\)", "", .) %>% 
-      gsub("випадки|випадків|випадок|\\.", "", .) %>% 
-      gsub(";", "", .) %>% 
-      gsub(" ", "", .) %>% 
+      gsub("[^0-9]", "", x) %>% 
       trimws() %>% 
       as.integer()
   }) %>% 
