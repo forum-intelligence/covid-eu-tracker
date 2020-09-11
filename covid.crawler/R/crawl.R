@@ -14,18 +14,31 @@ crawl_covid <- function(puppet_ch = system.file("crawl/crawl_ch.js", package = "
   puppet_no = system.file("crawl/crawl_no.js", package = "covid.crawler"), date_time = Sys.time(), 
   state = c("dev", "prod")){
   
+  cat("Scotland\n")
   add_scotland(state)
+  cat("Germany\n")
   add_germany(state)
+  cat("Italy\n")
   add_italy(state)
+  cat("Spain\n")
   add_spain(state)
+  cat("Ukraine\n")
   add_ukraine(state)
+  cat("Norway\n")
   add_norway(puppet_no, state)
+  cat("Switzerland\n")
   add_switzerland(puppet_ch, state)
+  cat("UK\n")
   add_uk(puppet_uk, state)
+  cat("Poland\n")
   add_poland(state)
+  cat("Netherlands\n")
   add_netherlands(state)
+  cat("Belgium\n")
   add_belgium(state)
+  cat("Europe\n")
   add_europe(state)
+  cat("Sweden\n")
   add_sweden(state)
   add_update_time(date_time, state)
 
@@ -69,33 +82,46 @@ add_norway <- function(puppet = system.file("crawl/crawl_no.js", package = "covi
 #' @rdname crawlers
 #' @export 
 add_scotland <- function(state = c("dev", "prod")){
-  # scotland
-  col_names <- function(.) c("county", "cases", "hospital", "icu")
-  sct_data <- read_html(url_sco) %>% 
-    rvest::html_node(".publication-body") %>% 
-    rvest::html_node("table") %>% 
-    rvest::html_table() %>% 
-    dplyr::rename_all(col_names) %>% 
+
+  url <- "https://www.gov.scot/publications/coronavirus-covid-19-trends-in-daily-data"
+
+  path <- read_html(url) %>% 
+    rvest::html_nodes(".document-info") %>% 
+    .[2] %>% 
+    rvest::html_node("a") %>% 
+    rvest::html_attr("href")
+
+  full_uri <- paste0("https://www.gov.scot", path)
+
+  tmp <- tempfile(fileext = ".xlsx")
+
+  on.exit({
+    file.remove(tmp)
+  })
+
+  download.file(full_uri, destfile = tmp)
+
+  sct_data <- readxl::read_xlsx(tmp, sheet = 3L, skip = 2L)
+
+  sct_data <- sct_data %>% 
+    dplyr::select(-Date) %>% 
+    dplyr::slice(dplyr::n()) %>% 
+    t() %>% 
+    as.data.frame() %>% 
+    tibble::rownames_to_column("county") %>% 
+    dplyr::filter(!is.na(V1)) %>% 
+    dplyr::filter(county != "Scotland") %>% 
+    dplyr::select(county, cases = V1) %>% 
     dplyr::mutate(
-      icu = gsub("\\*", "", icu),
-      cases = gsub("\\*", "", cases),
-      cases = gsub(",", "", cases),
-      hospital = gsub("\\*", "", hospital),
-      icu = as.integer(icu),
-      cases = as.integer(cases),
-      hospital = as.integer(hospital),
-      county = enc2native(county),
-      county = gsub("\\(.*\\)", "", county),
-      county = trimws(county)
-    ) %>% 
-    dplyr::mutate(
+      county = gsub("^NHS", "", county),
+      county = gsub(" & ", " and ", county),
+      county = trimws(county),
       county = dplyr::case_when(
-        county == "Eileanan Siar" ~ "Eilean Siar",
+        county == "Western Isles" ~ "Eilean Siar",
         TRUE ~ county
-      )
-    ) %>% 
-    dplyr::slice(2:dplyr::n())
-  sct_data$county[1] <- "Ayrshire and Arran"
+      ),
+      cases = as.integer(cases)
+    )
 
   con <- connect(state)
   write_table(con, "scotland", sct_data)
@@ -269,7 +295,8 @@ add_europe <- function(state = c("dev", "prod")){
   curl::curl_download(url_eu, fl)
   eu_data <- readr::read_csv(fl, col_types = readr::cols())
   unlink(fl)
-  names(eu_data) <- c("date_time", "day", "month", "year", "cases", "deaths", "country", "country_code", "country_code_iso", "population", "continent", "cumulative") 
+  names(eu_data) <- c("date_time", "day", "month", "year", "cases", "deaths", "country", "country_code", "country_code_iso", "population", "continent", "cumulative")
+  #eu_data$continent <- countrycode::countrycode(eu_data$country_code, "iso2c", "continent")   
 
   eu_data <- eu_data %>% 
     dplyr::mutate(
@@ -441,4 +468,3 @@ add_uk <- function(puppet = system.file("crawl/crawl_uk.js", package = "covid.cr
   write_table(con, "england", data)
   disconnect(con)
 }
-
